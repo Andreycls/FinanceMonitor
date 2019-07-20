@@ -1,0 +1,21 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/custom_refresh_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#608499" />
+
+    <ProgressBar
+        android:id="@+id/custom_refresh_recycler_view_progressbar"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_vertical"
+        android:visibility="gone" />
+
+</LinearLayout>

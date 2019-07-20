@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="ID = "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#050505" />
+
+    <TextView
+        android:id="@+id/textViewID"
+        android:layout_width="53dp"
+        android:layout_height="25dp"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="UserID"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#050505"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="67dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="28dp"
+        android:text="Name = "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#050505"
+        app:layout_constraintTop_toBottomOf="@+id/textViewID"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+</android.support.constraint.ConstraintLayout>

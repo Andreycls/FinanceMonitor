@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.itdel.asemjr.dwgapps.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#0277bd"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main"/>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="187dp"-->
+        <!--android:orientation="vertical"-->
+        <!--tools:layout_editor_absoluteY="-2dp">-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/custom_refresh_recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center" />-->
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/custom_refresh_recycler_view_progressbar"-->
+            <!--style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:foregroundGravity="center_vertical"-->
+            <!--android:visibility="gone" />-->
+
+    <!--</LinearLayout>-->
+</android.support.design.widget.CoordinatorLayout>

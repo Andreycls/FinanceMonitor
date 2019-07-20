@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single" >
+        <item android:title="Aplikasi">
+        <menu>
+
+
+        </menu>
+        </item>
+
+
+
+        <item android:title="Pengaturan">
+            <menu>
+                <item
+                    android:id="@+id/PengaturanAkun"
+                    android:icon="@drawable/register"
+                    android:title="Akun" />
+                <item
+                    android:id="@+id/Lapor"
+                    android:icon="@drawable/feedback"
+                    android:title="Tanggapan" />
+                <item
+                    android:id="@+id/Tentang"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Tentang" />
+
+                <item
+                    android:id="@+id/Keluar"
+                    android:icon="@drawable/iclogout"
+                    android:title="Keluar" />
+
+            </menu>
+        </item>
+
+
+
+
+    </group>
+
+
+
+</menu>
