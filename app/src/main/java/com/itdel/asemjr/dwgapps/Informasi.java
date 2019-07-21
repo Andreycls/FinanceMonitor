@@ -2,110 +2,86 @@ package com.itdel.asemjr.dwgapps;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import android.util.Log;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import java.util.ArrayList;
 
 /**
  * Created by asemJr on 2/12/2018.
  */
 
-public class Informasi extends AppCompatActivity {
-    ListView listView;
+public class Informasi extends AppCompatActivity implements OnChartValueSelectedListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(R.layout.activity_main);
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
+        pieChart.setUsePercentValues(true);
 
-        setContentView(R.layout.informasi);
-        Toolbar TManajemenAir = (Toolbar) findViewById(R.id.TManajemenAir);
-        TManajemenAir.setTitle("Finance Monitor");
-        Window w = getWindow();
-        w.setFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,
-                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS |
-                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        w.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        setSupportActionBar(TManajemenAir);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        Window w = getWindow();
-//        w.setFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,
-//                WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS |
-//                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        w.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-//        Toolbar TInformasi = (Toolbar) findViewById(R.id.TInformasi);
-//        TInformasi.setTitle("Informasi");
-//        setSupportActionBar (TInformasi);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // IMPORTANT: In a PieChart, no values (Entry) should have the same
+        // xIndex (even if from different DataSets), since no values can be
+        // drawn above each other.
+        ArrayList<Entry> yvalues = new ArrayList<Entry>();
+        yvalues.add(new Entry(8f, 0));
+        yvalues.add(new Entry(15f, 1));
+        yvalues.add(new Entry(12f, 2));
+        yvalues.add(new Entry(25f, 3));
+        yvalues.add(new Entry(23f, 4));
+        yvalues.add(new Entry(17f, 5));
 
+        PieDataSet dataSet = new PieDataSet(yvalues, "Election Results");
 
-//        listView = (ListView) findViewById(R.id.listViewHeroes);
-        getHeroes();
+        ArrayList<String> xVals = new ArrayList<String>();
 
+        xVals.add("January");
+        xVals.add("February");
+        xVals.add("March");
+        xVals.add("April");
+        xVals.add("May");
+        xVals.add("June");
+
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        pieChart.setData(data);
+        pieChart.setDescription("This is Pie Chart");
+
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setTransparentCircleRadius(25f);
+        pieChart.setHoleRadius(25f);
+
+        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.DKGRAY);
+        pieChart.setOnChartValueSelectedListener(this);
+
+        pieChart.animateXY(1400, 1400);
 
     }
 
-    private void getHeroes() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()) //Here we are using the GsonConverterFactory to directly convert json data to object
-                .build();
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 
-        Api api = retrofit.create(Api.class);
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYWNrYXRvblVzZXIiLCJzY29wZXMiOiJBRE1JTiIsIm5leHQiOiJLWUMiLCJpYXQiOjE1NjM1ODExMTcsImV4cCI6MTU2NDQ0NTExN30.Kd2DyPPwHmjZkeXC-yjdepk9-DuALYL5gemWdgr19BC1x_tnJglEFFNWYu24cua-miAEiP3dB-1UrBbWkr2ywA";
-        Call<List<Hero>> call = api.getHeroes("Bearer "+token);
-
-        call.enqueue(new Callback<List<Hero>>() {
-            @Override
-            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
-                List<Hero> heroList = response.body();
-
-                //Creating an String array for the ListView
-                String[] heroes = new String[heroList.size()];
-
-                //looping through all the heroes and inserting the names inside the string array
-                for (int i = 0; i < heroList.size(); i++) {
-                    heroes[i] = "Name :"+heroList.get(i).getName();
-                }
-
-
-                //displaying the string array into listview
-                listView.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, heroes));
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Hero>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getVal() + ", xIndex: " + e.getXIndex()
+                        + ", DataSet index: " + dataSetIndex);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
     }
+
 }
